@@ -33,7 +33,7 @@ const FullResume = () => {
   };
 
   return (
-    <div className={`bg-white shadow-2xl mx-auto my-8 print:my-0 print:shadow-none transition-all duration-500 overflow-hidden ${isATS ? 'max-w-[800px]' : 'max-w-[210mm] min-h-[297mm]'} ${baseFontSize}`}>
+    <div className={`bg-white shadow-2xl mx-auto my-8 print:my-0 print:shadow-none transition-all duration-500 overflow-hidden ${isATS ? 'max-w-[210mm] min-h-[297mm]' : 'max-w-[210mm] min-h-[297mm]'} ${baseFontSize}`}>
       <div className={`flex flex-col md:flex-row h-full min-h-[297mm] ${isATS ? 'bg-white' : ''}`}>
 
         {/* Sidebar */}
@@ -120,29 +120,42 @@ const FullResume = () => {
         )}
 
         {/* Main Content Area */}
-        <main className={`flex-1 ${compact ? 'p-8 md:p-10' : 'p-10 md:p-14'} ${isATS ? 'p-16' : ''}`}>
+        <main className={`flex-1 ${compact ? 'p-8 md:p-10' : 'p-10 md:p-14'} ${isATS ? 'p-12 md:p-16' : ''}`}>
           {/* Header */}
-          <header className={compact ? 'mb-6' : 'mb-10'}>
-            <h1 className={`${compact ? 'text-3xl' : 'text-4xl'} font-extrabold text-on-surface tracking-tight mb-1 uppercase`}>{info.name}</h1>
-            <p className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
+          <header className={isATS ? 'mb-6 text-center border-b-2 border-black pb-4' : (compact ? 'mb-6' : 'mb-10')}>
+            <h1 className={`${compact || isATS ? 'text-3xl' : 'text-4xl'} font-extrabold text-on-surface tracking-tight mb-1 uppercase`}>{info.name}</h1>
+            <p className={`${compact || isATS ? 'text-lg' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
 
             {isATS && (
-              <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-on-surface-variant">
-                <span className="flex items-center gap-1"><Mail size={12} /> {info.email}</span>
-                <span className="flex items-center gap-1"><Phone size={12} /> {info.phone}</span>
-                <span className="flex items-center gap-1"><MapPin size={12} /> {info.location}</span>
-                <span className="flex items-center gap-1"><Globe size={12} /> {info.website}</span>
+              <div className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[13px] font-medium text-on-surface-variant">
+                <span className="flex items-center gap-1">{info.email}</span>
+                <span className="text-gray-300">|</span>
+                <span className="flex items-center gap-1">{info.phone}</span>
+                <span className="text-gray-300">|</span>
+                <span className="flex items-center gap-1">{info.location}</span>
+                {info.website && (
+                  <>
+                    <span className="text-gray-300">|</span>
+                    <span className="flex items-center gap-1">{info.website}</span>
+                  </>
+                )}
+                {visibility.socials && (data.socials || []).map((social, i) => (
+                  <React.Fragment key={i}>
+                    <span className="text-gray-300">|</span>
+                    <span className="flex items-center gap-1">{social.url.replace('https://', '')}</span>
+                  </React.Fragment>
+                ))}
               </div>
             )}
           </header>
 
-          <div className={compact ? 'space-y-6' : 'space-y-10'}>
+          <div className={compact || isATS ? 'space-y-5' : 'space-y-10'}>
             {/* Summary */}
             <section>
-              <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-3 border-b-2 border-primary/10 pb-1 w-full">
-                Professional Profile
+              <h2 className={`text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-2 border-b border-primary/20 pb-1 w-full ${isATS ? 'text-sm text-black border-black/50' : ''}`}>
+                Professional Summary
               </h2>
-              <p className="text-on-surface-variant leading-relaxed font-medium">
+              <p className="text-on-surface-variant leading-relaxed font-medium text-sm">
                 {info.summary}
               </p>
             </section>
@@ -150,21 +163,21 @@ const FullResume = () => {
             {/* Experience */}
             {visibility.experience && (
               <section>
-                <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-5 border-b-2 border-primary/10 pb-1 w-full">
-                  Employment History
+                <h2 className={`text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-4 border-b border-primary/20 pb-1 w-full ${isATS ? 'text-sm text-black border-black/50' : ''}`}>
+                  Work Experience
                 </h2>
-                <div className={compact ? 'space-y-5' : 'space-y-8'}>
+                <div className={compact || isATS ? 'space-y-4' : 'space-y-8'}>
                   {(data.experience || []).map((exp, i) => (
-                    <div key={i} className="relative pl-6 before:absolute before:left-0 before:top-2 before:bottom-0 before:w-[1px] before:bg-primary/20">
-                      <div className="absolute left-[-3px] top-1.5 w-1.5 h-1.5 rounded-full bg-primary" />
-                      <div className="flex flex-col md:flex-row justify-between mb-1">
+                    <div key={i} className={isATS ? '' : 'relative pl-6 before:absolute before:left-0 before:top-2 before:bottom-0 before:w-[1px] before:bg-primary/20'}>
+                      {!isATS && <div className="absolute left-[-3px] top-1.5 w-1.5 h-1.5 rounded-full bg-primary" />}
+                      <div className="flex flex-col md:flex-row justify-between mb-0.5">
                         <div>
-                          <h3 className="text-base font-bold text-on-surface uppercase tracking-tight">{exp.title}</h3>
-                          <p className="text-sm font-bold text-primary">{exp.company}</p>
+                          <h3 className="text-sm font-bold text-on-surface uppercase tracking-tight">{exp.title}</h3>
+                          <p className="text-xs font-bold text-primary">{exp.company}</p>
                         </div>
-                        <span className="text-xs font-bold text-on-surface-variant opacity-60 uppercase">{exp.period}</span>
+                        <span className="text-[11px] font-bold text-on-surface-variant opacity-60 uppercase">{exp.period}</span>
                       </div>
-                      <ul className={`${compact ? 'mt-1.5 space-y-0.5' : 'mt-3 space-y-1.5'} list-disc list-inside marker:text-primary/50`}>
+                      <ul className={`${compact || isATS ? 'mt-1 space-y-0.5' : 'mt-3 space-y-1.5'} list-disc list-inside marker:text-primary/50 text-[13px]`}>
                         {(exp.points || []).map((point, idx) => (
                           <li key={idx} className="text-on-surface-variant font-medium leading-relaxed">
                             {point}
@@ -180,14 +193,16 @@ const FullResume = () => {
             {/* Education */}
             {visibility.education && (
               <section>
-                <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-5 border-b-2 border-primary/10 pb-1 w-full">
+                <h2 className={`text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-4 border-b border-primary/20 pb-1 w-full ${isATS ? 'text-sm text-black border-black/50' : ''}`}>
                   Education
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                <div className={`grid grid-cols-1 ${isATS ? 'gap-y-3' : 'md:grid-cols-2 gap-x-6 gap-y-4'}`}>
                   {(data.education || []).map((edu, i) => (
-                    <div key={i}>
-                      <h3 className="text-[13px] font-bold text-on-surface uppercase tracking-tight">{edu.degree}</h3>
-                      <p className="text-xs font-bold text-primary">{edu.school}</p>
+                    <div key={i} className={isATS ? 'flex justify-between items-start' : ''}>
+                      <div>
+                        <h3 className="text-[13px] font-bold text-on-surface uppercase tracking-tight">{edu.degree}</h3>
+                        <p className="text-xs font-bold text-primary">{edu.school}</p>
+                      </div>
                       <p className="text-[10px] font-bold text-on-surface-variant opacity-50 uppercase">{edu.period}</p>
                     </div>
                   ))}
@@ -198,20 +213,25 @@ const FullResume = () => {
             {/* Projects */}
             {visibility.projects && (
               <section>
-                <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-5 border-b-2 border-primary/10 pb-1 w-full">
-                  Strategic Projects
+                <h2 className={`text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-4 border-b border-primary/20 pb-1 w-full ${isATS ? 'text-sm text-black border-black/50' : ''}`}>
+                  Projects
                 </h2>
-                <div className={compact ? 'space-y-3' : 'space-y-4'}>
+                <div className={compact || isATS ? 'space-y-3' : 'space-y-4'}>
                   {(data.projects || []).map((project, i) => (
-                    <div key={i} className="flex flex-col gap-1 group">
-                      <h3 className="text-sm font-bold text-on-surface uppercase tracking-tight flex items-center gap-2">
-                        {project.title}
-                        {project.url !== "#" && project.url && (
-                          <a href={project.url} target="_blank" className="print:hidden">
-                            <ExternalLink size={12} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                          </a>
+                    <div key={i} className="flex flex-col gap-0.5 group">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-[13px] font-bold text-on-surface uppercase tracking-tight flex items-center gap-2">
+                          {project.title}
+                          {project.url !== "#" && project.url && (
+                            <a href={project.url} target="_blank" className="print:hidden">
+                              <ExternalLink size={12} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </a>
+                          )}
+                        </h3>
+                        {isATS && project.url !== "#" && project.url && (
+                          <span className="text-[10px] text-on-surface-variant opacity-50">{project.url.replace('https://', '')}</span>
                         )}
-                      </h3>
+                      </div>
                       <p className="text-xs font-medium text-on-surface-variant leading-relaxed">{project.desc}</p>
                     </div>
                   ))}
@@ -219,15 +239,40 @@ const FullResume = () => {
               </section>
             )}
 
+            {/* Achievements/Extras */}
+            {visibility.extras && (
+              <section>
+                <h2 className={`text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-4 border-b border-primary/20 pb-1 w-full ${isATS ? 'text-sm text-black border-black/50' : ''}`}>
+                  Achievements & Hobbies
+                </h2>
+                <div className="space-y-3">
+                  {(data.achievements || []).length > 0 && (
+                    <ul className={`${compact || isATS ? 'mt-1 space-y-0.5' : 'mt-3 space-y-1.5'} list-disc list-inside marker:text-primary/50 text-[13px]`}>
+                      {(data.achievements || []).map((achievement, i) => (
+                        <li key={i} className="text-on-surface-variant font-medium leading-relaxed">
+                          {achievement}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {isATS && (data.hobbies || []).length > 0 && (
+                    <p className="text-on-surface-variant font-medium text-sm mt-2">
+                      <span className="font-bold text-primary">Interests:</span> {(data.hobbies || []).join(", ")}
+                    </p>
+                  )}
+                </div>
+              </section>
+            )}
+
             {/* ATS Sections at bottom */}
             {isATS && (
-              <div className={compact ? 'space-y-6' : 'space-y-10'}>
+              <div className="space-y-5">
                 {visibility.skills && (
                   <section>
-                    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-3 border-b-2 border-primary/10 pb-1 w-full">
-                      Skills
+                    <h2 className="text-sm font-extrabold uppercase tracking-[0.2em] text-black mb-2 border-b border-black/50 pb-1 w-full">
+                      Technical Skills
                     </h2>
-                    <p className="text-on-surface-variant font-medium leading-relaxed">
+                    <p className="text-on-surface-variant font-medium leading-relaxed text-sm">
                       {(data.skills || []).join(" • ")}
                     </p>
                   </section>
@@ -235,14 +280,16 @@ const FullResume = () => {
 
                 {visibility.certificates && (
                   <section>
-                    <h2 className="text-xs font-extrabold uppercase tracking-[0.2em] text-primary mb-3 border-b-2 border-primary/10 pb-1 w-full">
+                    <h2 className="text-sm font-extrabold uppercase tracking-[0.2em] text-black mb-2 border-b border-black/50 pb-1 w-full">
                       Certifications
                     </h2>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2">
                       {(data.certificates || []).map((cert, i) => (
-                        <div key={i}>
-                          <p className="text-sm font-bold text-on-surface">{cert.title}</p>
-                          <p className="text-xs font-bold text-primary opacity-70">{cert.issuer}</p>
+                        <div key={i} className="flex justify-between items-center border-l-2 border-primary/10 pl-3">
+                          <div>
+                            <p className="text-sm font-bold text-on-surface">{cert.title}</p>
+                            <p className="text-xs font-bold text-primary opacity-70">{cert.issuer}</p>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -252,6 +299,7 @@ const FullResume = () => {
             )}
           </div>
         </main>
+
       </div>
     </div>
   );
