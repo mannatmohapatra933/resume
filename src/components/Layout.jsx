@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { 
-  Sun, Moon, Download, Settings, X, Save, RotateCcw, 
-  Plus, Trash2, User, Briefcase, GraduationCap, Terminal, FolderKanban, 
+import {
+  Sun, Moon, Download, Settings, X, Save, RotateCcw,
+  Plus, Trash2, User, Briefcase, GraduationCap, Terminal, FolderKanban,
   Globe, Sparkles, Lightbulb, CheckCircle2, Zap, Heart, Trophy, Medal,
   Link as LinkIcon, Palette, Minimize2, FileText
 } from 'lucide-react';
 import { useResume } from '../ResumeContext';
 
 const Layout = ({ children }) => {
-  const { 
+  const {
     data, updatePersonalInfo, updateSection, resetData,
-    addItem, removeItem, updateItem 
+    addItem, removeItem, updateItem
   } = useResume();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('general');
@@ -89,19 +89,19 @@ const Layout = ({ children }) => {
 
       {/* Mobile Bottom Navigation */}
       <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-surface-container/90 backdrop-blur-xl border border-outline-variant/20 rounded-2xl shadow-2xl z-40 px-2 py-2 flex items-center gap-1 no-print">
-        <NavLink to="/" className={({isActive}) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+        <NavLink to="/" className={({ isActive }) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
           <User size={20} />
           <span className="text-[10px] font-bold mt-1 uppercase tracking-tighter">Profile</span>
         </NavLink>
-        <NavLink to="/history" className={({isActive}) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+        <NavLink to="/history" className={({ isActive }) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
           <Briefcase size={20} />
           <span className="text-[10px] font-bold mt-1 uppercase tracking-tighter">Experience</span>
         </NavLink>
-        <NavLink to="/expertise" className={({isActive}) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+        <NavLink to="/expertise" className={({ isActive }) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
           <Terminal size={20} />
           <span className="text-[10px] font-bold mt-1 uppercase tracking-tighter">Skills</span>
         </NavLink>
-        <NavLink to="/resume" className={({isActive}) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
+        <NavLink to="/resume" className={({ isActive }) => `flex flex-col items-center p-3 rounded-xl transition-all ${isActive ? 'bg-primary text-on-primary shadow-lg shadow-primary/30' : 'text-on-surface-variant hover:bg-surface-variant'}`}>
           <Download size={20} />
           <span className="text-[10px] font-bold mt-1 uppercase tracking-tighter">Resume</span>
         </NavLink>
@@ -126,7 +126,7 @@ const Layout = ({ children }) => {
               {/* Vertical Tabs */}
               <div className="w-16 border-r border-outline-variant/20 flex flex-col gap-2 p-2 bg-surface-container-low">
                 {tabs.map(tab => (
-                  <button 
+                  <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
                     className={`p-3 rounded-xl flex flex-col items-center gap-1 transition-all ${activeTab === tab.id ? 'bg-primary text-on-primary shadow-md shadow-primary/20' : 'text-on-surface-variant hover:bg-surface-variant'}`}
@@ -143,32 +143,135 @@ const Layout = ({ children }) => {
                   <div className="space-y-6">
                     <h3 className="font-display font-bold text-lg text-primary">Identity & Layout</h3>
                     <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Full Name</label>
+                          <input
+                            value={info.name}
+                            onChange={(e) => updatePersonalInfo('name', e.target.value)}
+                            className="input-field"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Title</label>
+                          <input
+                            value={info.title}
+                            onChange={(e) => updatePersonalInfo('title', e.target.value)}
+                            className="input-field"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Location</label>
+                          <input
+                            value={info.location}
+                            onChange={(e) => updatePersonalInfo('location', e.target.value)}
+                            className="input-field"
+                            placeholder="e.g. New York, NY"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Relocation</label>
+                          <button
+                            onClick={() => updatePersonalInfo('relocation', !info.relocation)}
+                            className={`flex items-center justify-between w-full p-2.5 rounded-xl border transition-all ${info.relocation ? 'border-primary/30 bg-primary/5 text-primary' : 'border-outline-variant/30 text-on-surface-variant'}`}
+                          >
+                            <span className="text-xs font-bold">Ready to Relocate</span>
+                            <div className={`w-8 h-4 rounded-full relative transition-all ${info.relocation ? 'bg-primary' : 'bg-outline-variant'}`}>
+                              <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${info.relocation ? 'left-4.5' : 'left-0.5'}`} />
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Email</label>
+                          <input
+                            value={info.email}
+                            onChange={(e) => updatePersonalInfo('email', e.target.value)}
+                            className="input-field"
+                            placeholder="email@example.com"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Phone</label>
+                          <input
+                            value={info.phone}
+                            onChange={(e) => updatePersonalInfo('phone', e.target.value)}
+                            className="input-field"
+                            placeholder="+1 (555) 000-0000"
+                          />
+                        </div>
+                      </div>
+
                       <div>
-                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Full Name</label>
-                        <input 
-                          value={info.name}
-                          onChange={(e) => updatePersonalInfo('name', e.target.value)}
-                          className="input-field" 
+                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Website</label>
+                        <input
+                          value={info.website}
+                          onChange={(e) => updatePersonalInfo('website', e.target.value)}
+                          className="input-field"
+                          placeholder="portfolio.com"
                         />
                       </div>
+
                       <div>
-                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Title</label>
-                        <input 
-                          value={info.title}
-                          onChange={(e) => updatePersonalInfo('title', e.target.value)}
-                          className="input-field" 
+                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Summary</label>
+                        <textarea
+                          value={info.summary}
+                          onChange={(e) => updatePersonalInfo('summary', e.target.value)}
+                          className="input-field min-h-[120px] py-3 resize-none"
+                          placeholder="Write a brief professional overview..."
                         />
                       </div>
-                      
+
+                      <div className="p-4 bg-surface-container rounded-2xl border border-outline-variant/10 space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center overflow-hidden">
+                              {info.photoUrl ? (
+                                <img src={info.photoUrl} alt="Preview" className="w-full h-full object-cover" />
+                              ) : (
+                                <User size={20} />
+                              )}
+                            </div>
+                            <div>
+                              <p className="text-sm font-bold">Profile Photo</p>
+                              <p className="text-[10px] opacity-60">Visibility & URL</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => updatePersonalInfo('showPhoto', !info.showPhoto)}
+                            className={`w-10 h-6 rounded-full relative transition-all ${info.showPhoto ? 'bg-primary' : 'bg-outline-variant'}`}
+                          >
+                            <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${info.showPhoto ? 'left-5' : 'left-1'}`} />
+                          </button>
+                        </div>
+
+                        {info.showPhoto && (
+                          <div className="pt-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                            <label className="text-[10px] font-bold text-on-surface-variant uppercase ml-1">Photo URL</label>
+                            <input
+                              value={info.photoUrl}
+                              onChange={(e) => updatePersonalInfo('photoUrl', e.target.value)}
+                              className="input-field mt-1 text-xs py-2 h-9"
+                              placeholder="https://images.unsplash.com/..."
+                            />
+                          </div>
+                        )}
+                      </div>
+
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Theme Color</label>
                           <div className="flex items-center gap-2 mt-1">
-                            <input 
+                            <input
                               type="color"
                               value={info.themeColor || '#004349'}
                               onChange={(e) => updatePersonalInfo('themeColor', e.target.value)}
-                              className="w-10 h-10 rounded-lg cursor-pointer border-none bg-transparent" 
+                              className="w-10 h-10 rounded-lg cursor-pointer border-none bg-transparent"
                             />
                             <span className="text-xs font-mono opacity-60 uppercase">{info.themeColor}</span>
                           </div>
@@ -203,7 +306,7 @@ const Layout = ({ children }) => {
                           </div>
                         </button>
                       </div>
-                      
+
                       <div className="pt-4 space-y-3">
                         <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Visibility Controls</label>
                         <div className="grid grid-cols-2 gap-2">
@@ -239,7 +342,7 @@ const Layout = ({ children }) => {
                     </div>
                   </div>
                 )}
-                
+
                 {activeTab === 'experience' && (
                   <div className="space-y-6">
                     <div className="flex items-center justify-between">
@@ -277,14 +380,14 @@ const Layout = ({ children }) => {
                     <div className="flex flex-wrap gap-2">
                       {data.skills.map((skill, i) => (
                         <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/20 group">
-                          <input 
-                            className="bg-transparent text-sm font-semibold outline-none min-w-[80px]" 
-                            value={skill} 
+                          <input
+                            className="bg-transparent text-sm font-semibold outline-none min-w-[80px]"
+                            value={skill}
                             onChange={(e) => {
                               const newSkills = [...data.skills];
                               newSkills[i] = e.target.value;
                               updateSection('skills', newSkills);
-                            }} 
+                            }}
                           />
                           <button onClick={() => {
                             const newSkills = data.skills.filter((_, idx) => idx !== i);
@@ -292,6 +395,192 @@ const Layout = ({ children }) => {
                           }} className="text-error opacity-0 group-hover:opacity-100 transition-opacity">
                             <X size={14} />
                           </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'education' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display font-bold text-lg text-primary">Education</h3>
+                      <button onClick={() => addItem('education', { id: Date.now(), school: 'University', degree: 'Degree', period: '2020 - 2024' })} className="p-2 bg-primary text-on-primary rounded-full shadow-md active:scale-95 transition-all">
+                        <Plus size={20} />
+                      </button>
+                    </div>
+                    <div className="space-y-4">
+                      {(data.education || []).map(edu => (
+                        <div key={edu.id} className="p-4 border border-outline-variant/20 rounded-2xl bg-surface-container-low space-y-3 relative group">
+                          <button onClick={() => removeItem('education', edu.id)} className="absolute top-4 right-4 p-2 text-error opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error/10 rounded-full">
+                            <Trash2 size={16} />
+                          </button>
+                          <input className="bg-transparent font-bold text-base w-full outline-none" placeholder="School/University" value={edu.school} onChange={(e) => updateItem('education', edu.id, { ...edu, school: e.target.value })} />
+                          <input className="bg-transparent text-sm font-semibold opacity-70 w-full outline-none" placeholder="Degree" value={edu.degree} onChange={(e) => updateItem('education', edu.id, { ...edu, degree: e.target.value })} />
+                          <input className="bg-transparent text-xs font-medium opacity-50 w-full outline-none" placeholder="Period" value={edu.period} onChange={(e) => updateItem('education', edu.id, { ...edu, period: e.target.value })} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'projects' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display font-bold text-lg text-primary">Projects</h3>
+                      <button onClick={() => addItem('projects', { id: Date.now(), title: 'New Project', desc: 'Project description', url: '' })} className="p-2 bg-primary text-on-primary rounded-full shadow-md active:scale-95 transition-all">
+                        <Plus size={20} />
+                      </button>
+                    </div>
+                    <div className="space-y-4">
+                      {(data.projects || []).map(project => (
+                        <div key={project.id} className="p-4 border border-outline-variant/20 rounded-2xl bg-surface-container-low space-y-3 relative group">
+                          <button onClick={() => removeItem('projects', project.id)} className="absolute top-4 right-4 p-2 text-error opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error/10 rounded-full">
+                            <Trash2 size={16} />
+                          </button>
+                          <input className="bg-transparent font-bold text-base w-full outline-none" placeholder="Project Title" value={project.title} onChange={(e) => updateItem('projects', project.id, { ...project, title: e.target.value })} />
+                          <textarea className="bg-transparent text-sm w-full outline-none resize-none" rows={2} placeholder="Description" value={project.desc} onChange={(e) => updateItem('projects', project.id, { ...project, desc: e.target.value })} />
+                          <div className="flex items-center gap-2 text-xs opacity-60">
+                            <LinkIcon size={12} />
+                            <input className="bg-transparent w-full outline-none" placeholder="Project URL" value={project.url} onChange={(e) => updateItem('projects', project.id, { ...project, url: e.target.value })} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'socials' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display font-bold text-lg text-primary">Social Links</h3>
+                      <button onClick={() => addItem('socials', { platform: 'LinkedIn', url: '', icon: 'Linkedin' })} className="p-2 bg-primary text-on-primary rounded-full shadow-md active:scale-95 transition-all">
+                        <Plus size={20} />
+                      </button>
+                    </div>
+                    <div className="space-y-3">
+                      {(data.socials || []).map((social, i) => (
+                        <div key={i} className="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-outline-variant/10">
+                          <select
+                            className="bg-transparent text-sm font-bold outline-none"
+                            value={social.platform}
+                            onChange={(e) => {
+                              const newSocials = [...data.socials];
+                              newSocials[i] = { ...social, platform: e.target.value, icon: e.target.value === 'GitHub' ? 'Github' : 'Linkedin' };
+                              updateSection('socials', newSocials);
+                            }}
+                          >
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="GitHub">GitHub</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Portfolio">Portfolio</option>
+                          </select>
+                          <input
+                            className="flex-1 bg-transparent text-xs outline-none opacity-70"
+                            placeholder="URL"
+                            value={social.url}
+                            onChange={(e) => {
+                              const newSocials = [...data.socials];
+                              newSocials[i] = { ...social, url: e.target.value };
+                              updateSection('socials', newSocials);
+                            }}
+                          />
+                          <button onClick={() => {
+                            const newSocials = data.socials.filter((_, idx) => idx !== i);
+                            updateSection('socials', newSocials);
+                          }} className="text-error hover:bg-error/10 p-1 rounded-full">
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'extras' && (
+                  <div className="space-y-8">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-display font-bold text-lg text-primary flex items-center gap-2">
+                          <Trophy size={18} /> Achievements
+                        </h3>
+                        <button onClick={() => addItem('achievements', 'New Achievement')} className="p-1.5 bg-primary/10 text-primary rounded-full hover:bg-primary/20">
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                      <div className="space-y-2">
+                        {(data.achievements || []).map((ach, i) => (
+                          <div key={i} className="flex items-center gap-2 p-2 bg-surface-container-low rounded-lg group">
+                            <input
+                              className="flex-1 bg-transparent text-sm outline-none"
+                              value={ach}
+                              onChange={(e) => {
+                                const newAch = [...data.achievements];
+                                newAch[i] = e.target.value;
+                                updateSection('achievements', newAch);
+                              }}
+                            />
+                            <button onClick={() => {
+                              const newAch = data.achievements.filter((_, idx) => idx !== i);
+                              updateSection('achievements', newAch);
+                            }} className="text-error opacity-0 group-hover:opacity-100">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-display font-bold text-lg text-secondary flex items-center gap-2">
+                          <Heart size={18} /> Hobbies
+                        </h3>
+                        <button onClick={() => addItem('hobbies', 'New Hobby')} className="p-1.5 bg-secondary/10 text-secondary rounded-full hover:bg-secondary/20">
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {(data.hobbies || []).map((hobby, i) => (
+                          <div key={i} className="flex items-center gap-2 px-3 py-1 bg-secondary/5 text-secondary rounded-full border border-secondary/20 group">
+                            <input
+                              className="bg-transparent text-xs font-bold outline-none min-w-[60px]"
+                              value={hobby}
+                              onChange={(e) => {
+                                const newHobbies = [...data.hobbies];
+                                newHobbies[i] = e.target.value;
+                                updateSection('hobbies', newHobbies);
+                              }}
+                            />
+                            <button onClick={() => {
+                              const newHobbies = data.hobbies.filter((_, idx) => idx !== i);
+                              updateSection('hobbies', newHobbies);
+                            }} className="opacity-0 group-hover:opacity-100">
+                              <X size={12} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'certificates' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display font-bold text-lg text-primary">Certificates</h3>
+                      <button onClick={() => addItem('certificates', { id: Date.now(), title: 'Certificate', issuer: 'Issuer', url: '' })} className="p-2 bg-primary text-on-primary rounded-full shadow-md active:scale-95 transition-all">
+                        <Plus size={20} />
+                      </button>
+                    </div>
+                    <div className="space-y-4">
+                      {(data.certificates || []).map(cert => (
+                        <div key={cert.id} className="p-4 border border-outline-variant/20 rounded-2xl bg-surface-container-low space-y-3 relative group">
+                          <button onClick={() => removeItem('certificates', cert.id)} className="absolute top-4 right-4 p-2 text-error opacity-0 group-hover:opacity-100 transition-opacity hover:bg-error/10 rounded-full">
+                            <Trash2 size={16} />
+                          </button>
+                          <input className="bg-transparent font-bold text-base w-full outline-none" placeholder="Certificate Name" value={cert.title} onChange={(e) => updateItem('certificates', cert.id, { ...cert, title: e.target.value })} />
+                          <input className="bg-transparent text-sm font-semibold opacity-70 w-full outline-none" placeholder="Issuer" value={cert.issuer} onChange={(e) => updateItem('certificates', cert.id, { ...cert, issuer: e.target.value })} />
                         </div>
                       ))}
                     </div>
