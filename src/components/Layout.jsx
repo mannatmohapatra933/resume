@@ -208,16 +208,6 @@ const Layout = ({ children }) => {
                       </div>
 
                       <div>
-                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Website</label>
-                        <input
-                          value={info.website}
-                          onChange={(e) => updatePersonalInfo('website', e.target.value)}
-                          className="input-field"
-                          placeholder="portfolio.com"
-                        />
-                      </div>
-
-                      <div>
                         <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Summary</label>
                         <textarea
                           value={info.summary}

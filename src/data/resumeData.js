@@ -3,7 +3,6 @@ export const initialData = {
     name: "Alexander Vance",
     title: "Senior Operations Director",
     location: "New York, NY",
-    website: "alexandervance.me",
     email: "contact@alexandervance.me",
     phone: "+1 (555) 012-3456",
     relocation: true,
@@ -26,6 +25,7 @@ export const initialData = {
     }
   },
   socials: [
+    { platform: "Portfolio", url: "alexandervance.me", icon: "Globe" },
     { platform: "LinkedIn", url: "linkedin.com/in/alexvance", icon: "Linkedin" },
     { platform: "GitHub", url: "github.com/alexvance", icon: "Github" }
   ],

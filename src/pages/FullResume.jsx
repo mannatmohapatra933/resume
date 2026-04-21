@@ -66,10 +66,6 @@ const FullResume = () => {
                   <MapPin size={14} className="mt-0.5 text-primary" />
                   <span>{info.location}</span>
                 </div>
-                <div className="flex items-start gap-3">
-                  <Globe size={14} className="mt-0.5 text-primary" />
-                  <span className="break-all">{info.website}</span>
-                </div>
               </div>
             </section>
 
@@ -149,15 +145,6 @@ const FullResume = () => {
                 <span className="flex items-center gap-1.5">
                   <MapPin size={12} className="text-red-500" /> {info.location}
                 </span>
-                {info.website && (
-                  <>
-                    <span className="text-gray-300">|</span>
-                    <a href={info.website.startsWith('http') ? info.website : `https://${info.website}`} target="_blank" className="flex items-center gap-1.5 hover:underline">
-                      <Globe size={12} className="text-teal-500" />
-                      <span>Portfolio</span>
-                    </a>
-                  </>
-                )}
                 {visibility.socials && (data.socials || []).map((social, i) => {
                   const PlatformIcon = {
                     'Linkedin': LinkedinColor,

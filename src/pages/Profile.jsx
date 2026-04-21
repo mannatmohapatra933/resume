@@ -59,9 +59,6 @@ const Profile = () => {
               <span className="flex items-center gap-1.5"><MapPin size={16} /> {info.location}</span>
               <span className="flex items-center gap-1.5"><Mail size={16} /> {info.email}</span>
               <span className="flex items-center gap-1.5"><Phone size={16} /> {info.phone}</span>
-              <a href={`https://${info.website}`} target="_blank" className="flex items-center gap-1.5 text-primary hover:underline cursor-pointer">
-                <Globe size={16} /> {info.website}
-              </a>
             </div>
           </div>
         </div>
