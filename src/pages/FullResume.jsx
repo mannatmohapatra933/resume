@@ -35,7 +35,7 @@ const FullResume = () => {
   return (
     <div className={`bg-white shadow-2xl mx-auto my-8 print:my-0 print:shadow-none transition-all duration-500 overflow-hidden ${isATS ? 'max-w-[800px]' : 'max-w-[210mm] min-h-[297mm]'} ${baseFontSize}`}>
       <div className={`flex flex-col md:flex-row h-full min-h-[297mm] ${isATS ? 'bg-white' : ''}`}>
-        
+
         {/* Sidebar */}
         {!isATS && (
           <aside className={`w-full md:w-72 bg-surface-container-low border-r border-outline-variant/10 flex flex-col print:bg-slate-50 ${compact ? 'p-6 gap-6' : 'p-8 gap-10'}`}>
@@ -125,13 +125,13 @@ const FullResume = () => {
           <header className={compact ? 'mb-6' : 'mb-10'}>
             <h1 className={`${compact ? 'text-3xl' : 'text-4xl'} font-extrabold text-on-surface tracking-tight mb-1 uppercase`}>{info.name}</h1>
             <p className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
-            
+
             {isATS && (
               <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-on-surface-variant">
-                <span className="flex items-center gap-1"><Mail size={12}/> {info.email}</span>
-                <span className="flex items-center gap-1"><Phone size={12}/> {info.phone}</span>
-                <span className="flex items-center gap-1"><MapPin size={12}/> {info.location}</span>
-                <span className="flex items-center gap-1"><Globe size={12}/> {info.website}</span>
+                <span className="flex items-center gap-1"><Mail size={12} /> {info.email}</span>
+                <span className="flex items-center gap-1"><Phone size={12} /> {info.phone}</span>
+                <span className="flex items-center gap-1"><MapPin size={12} /> {info.location}</span>
+                <span className="flex items-center gap-1"><Globe size={12} /> {info.website}</span>
               </div>
             )}
           </header>
