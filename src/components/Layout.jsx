@@ -4,7 +4,7 @@ import {
   Sun, Moon, Download, Settings, X, Save, RotateCcw,
   Plus, Trash2, User, Briefcase, GraduationCap, Terminal, FolderKanban,
   Globe, Sparkles, Lightbulb, CheckCircle2, Zap, Heart, Trophy, Medal,
-  Link as LinkIcon, Palette, Minimize2, FileText
+  Link as LinkIcon, Palette, Minimize2, FileText, Linkedin, Github
 } from 'lucide-react';
 import { useResume } from '../ResumeContext';
 
@@ -481,7 +481,7 @@ const Layout = ({ children }) => {
                               else if (platform === 'Twitter') icon = 'Twitter';
                               else if (platform === 'Instagram') icon = 'Instagram';
                               else if (platform === 'Portfolio') icon = 'Globe';
-                              
+
                               newSocials[i] = { ...social, platform, icon };
                               updateSection('socials', newSocials);
                             }}
