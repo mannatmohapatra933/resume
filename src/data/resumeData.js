@@ -87,7 +87,7 @@ export const initialData = {
     }
   ],
   skills: [
-    "Strategic Planning", "Team Leadership", "Budget Management", "Process Automation", 
+    "Strategic Planning", "Team Leadership", "Budget Management", "Process Automation",
     "Data Analysis", "Project Management", "Stakeholder Relations", "SaaS Operations"
   ],
   expertise: {
