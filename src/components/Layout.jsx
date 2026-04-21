@@ -461,18 +461,35 @@ const Layout = ({ children }) => {
                     <div className="space-y-3">
                       {(data.socials || []).map((social, i) => (
                         <div key={i} className="flex items-center gap-3 p-3 bg-surface-container-low rounded-xl border border-outline-variant/10">
+                          <div className="text-primary opacity-60">
+                            {social.icon === 'Linkedin' && <Linkedin size={16} />}
+                            {social.icon === 'Github' && <Github size={16} />}
+                            {social.icon === 'Twitter' && <LinkIcon size={16} />}
+                            {social.icon === 'Instagram' && <LinkIcon size={16} />}
+                            {social.icon === 'Globe' && <Globe size={16} />}
+                            {!['Linkedin', 'Github', 'Twitter', 'Instagram', 'Globe'].includes(social.icon) && <Globe size={16} />}
+                          </div>
                           <select
                             className="bg-transparent text-sm font-bold outline-none"
                             value={social.platform}
                             onChange={(e) => {
                               const newSocials = [...data.socials];
-                              newSocials[i] = { ...social, platform: e.target.value, icon: e.target.value === 'GitHub' ? 'Github' : 'Linkedin' };
+                              const platform = e.target.value;
+                              let icon = 'Globe';
+                              if (platform === 'LinkedIn') icon = 'Linkedin';
+                              else if (platform === 'GitHub') icon = 'Github';
+                              else if (platform === 'Twitter') icon = 'Twitter';
+                              else if (platform === 'Instagram') icon = 'Instagram';
+                              else if (platform === 'Portfolio') icon = 'Globe';
+                              
+                              newSocials[i] = { ...social, platform, icon };
                               updateSection('socials', newSocials);
                             }}
                           >
                             <option value="LinkedIn">LinkedIn</option>
                             <option value="GitHub">GitHub</option>
                             <option value="Twitter">Twitter</option>
+                            <option value="Instagram">Instagram</option>
                             <option value="Portfolio">Portfolio</option>
                           </select>
                           <input
