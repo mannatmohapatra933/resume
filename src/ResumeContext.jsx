@@ -95,6 +95,7 @@ export const ResumeProvider = ({ children }) => {
   );
 };
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export const useResume = () => {
   const context = useContext(ResumeContext);
   if (!context) throw new Error("useResume must be used within a ResumeProvider");

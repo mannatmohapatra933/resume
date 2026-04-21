@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { 
   Sun, Moon, Download, Settings, X, Save, RotateCcw, 
   Plus, Trash2, User, Briefcase, GraduationCap, Terminal, FolderKanban, 
@@ -15,7 +15,6 @@ const Layout = ({ children }) => {
   } = useResume();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('general');
-  const location = useLocation();
 
   const info = data.personalInfo;
 
