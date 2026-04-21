@@ -135,10 +135,18 @@ const FullResume = () => {
                 <span className="flex items-center gap-1.5">
                   <Phone size={12} className="text-blue-600" /> {info.phone}
                 </span>
-                <span className="text-gray-300">|</span>
                 <span className="flex items-center gap-1.5">
                   <MapPin size={12} className="text-red-500" /> {info.location}
                 </span>
+                {info.website && (
+                  <>
+                    <span className="text-gray-300">|</span>
+                    <a href={info.website.startsWith('http') ? info.website : `https://${info.website}`} target="_blank" className="flex items-center gap-1.5 hover:underline">
+                      <Globe size={12} className="text-teal-500" />
+                      <span>Portfolio</span>
+                    </a>
+                  </>
+                )}
                 {visibility.socials && (data.socials || []).map((social, i) => (
                   <React.Fragment key={i}>
                     <span className="text-gray-300">|</span>
