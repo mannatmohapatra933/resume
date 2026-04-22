@@ -21,6 +21,7 @@ export const ResumeProvider = ({ children }) => {
         education: parsed.education || initialData.education,
         projects: parsed.projects || initialData.projects,
         skills: parsed.skills || initialData.skills,
+        tools: parsed.tools || initialData.tools,
         socials: parsed.socials || initialData.socials,
         certificates: parsed.certificates || initialData.certificates,
         achievements: parsed.achievements || initialData.achievements,

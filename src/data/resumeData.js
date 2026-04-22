@@ -8,6 +8,7 @@ export const initialData = {
     relocation: true,
     showPhoto: true,
     photoUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200&h=200",
+    showTitle: true,
     isFresher: false,
     isATS: false,
     compactMode: false,
@@ -19,11 +20,13 @@ export const initialData = {
       education: true,
       projects: true,
       skills: true,
+      tools: true,
       socials: true,
       extras: true,
       certificates: true
     }
   },
+  tools: ["Jira", "Asana", "Tableau", "Salesforce", "Google Analytics", "Slack"],
   socials: [
     { platform: "Portfolio", url: "alexandervance.me", icon: "Globe" },
     { platform: "LinkedIn", url: "linkedin.com/in/alexvance", icon: "Linkedin" },

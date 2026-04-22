@@ -44,6 +44,7 @@ const Layout = ({ children }) => {
     { id: 'projects', label: 'Projects', icon: FolderKanban },
     { id: 'skills', label: 'Skills', icon: Terminal },
     { id: 'socials', label: 'Socials', icon: Globe },
+    { id: 'tools', label: 'Tools', icon: Settings },
     { id: 'extras', label: 'Extras', icon: Trophy },
     { id: 'certificates', label: 'Certificates', icon: Medal },
     { id: 'ai', label: 'AI Assistant', icon: Sparkles },
@@ -154,11 +155,20 @@ const Layout = ({ children }) => {
                         </div>
                         <div>
                           <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Title</label>
-                          <input
-                            value={info.title}
-                            onChange={(e) => updatePersonalInfo('title', e.target.value)}
-                            className="input-field"
-                          />
+                          <div className="flex gap-2">
+                            <input
+                              value={info.title}
+                              onChange={(e) => updatePersonalInfo('title', e.target.value)}
+                              className="input-field flex-1"
+                            />
+                            <button
+                              onClick={() => updatePersonalInfo('showTitle', !info.showTitle)}
+                              className={`p-2 rounded-xl border transition-all ${info.showTitle ? 'bg-primary/10 text-primary border-primary/20' : 'bg-surface-variant text-on-surface-variant border-outline-variant/20'}`}
+                              title="Toggle Title Visibility"
+                            >
+                              {info.showTitle ? <Moon size={18} /> : <Sun size={18} />}
+                            </button>
+                          </div>
                         </div>
                       </div>
 
@@ -208,7 +218,7 @@ const Layout = ({ children }) => {
                       </div>
 
                       <div>
-                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Professional Summary</label>
+                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">PROFILE SUMMARY</label>
                         <textarea
                           value={info.summary}
                           onChange={(e) => updatePersonalInfo('summary', e.target.value)}
@@ -497,6 +507,38 @@ const Layout = ({ children }) => {
                             updateSection('socials', newSocials);
                           }} className="text-error hover:bg-error/10 p-1 rounded-full">
                             <Trash2 size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'tools' && (
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between">
+                      <h3 className="font-display font-bold text-lg text-primary">Tools & Technologies</h3>
+                      <button onClick={() => addItem('tools', 'New Tool')} className="p-2 bg-primary text-on-primary rounded-full shadow-md active:scale-95 transition-all">
+                        <Plus size={20} />
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {(data.tools || []).map((tool, i) => (
+                        <div key={i} className="flex items-center gap-2 px-3 py-1.5 bg-surface-container rounded-lg border border-outline-variant/20 group">
+                          <input
+                            className="bg-transparent text-sm font-semibold outline-none min-w-[80px]"
+                            value={tool}
+                            onChange={(e) => {
+                              const newTools = [...data.tools];
+                              newTools[i] = e.target.value;
+                              updateSection('tools', newTools);
+                            }}
+                          />
+                          <button onClick={() => {
+                            const newTools = data.tools.filter((_, idx) => idx !== i);
+                            updateSection('tools', newTools);
+                          }} className="text-error opacity-0 group-hover:opacity-100 transition-opacity">
+                            <X size={14} />
                           </button>
                         </div>
                       ))}

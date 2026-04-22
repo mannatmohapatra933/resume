@@ -29,7 +29,8 @@ const FullResume = () => {
     skills: true,
     socials: true,
     extras: true,
-    certificates: true
+    certificates: true,
+    tools: true
   };
 
   return (
@@ -122,6 +123,19 @@ const FullResume = () => {
                 </div>
               </section>
             )}
+            {/* Tools */}
+            {visibility.tools && (
+              <section className={compact ? 'space-y-3' : 'space-y-4'}>
+                <h3 className="text-xs font-extrabold uppercase tracking-widest text-primary border-b border-primary/20 pb-2">Tools</h3>
+                <div className="flex flex-wrap gap-2">
+                  {(data.tools || []).map((tool, i) => (
+                    <span key={i} className="px-2 py-0.5 bg-white border border-outline-variant/30 rounded text-[10px] font-bold text-on-surface">
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            )}
           </aside>
         )}
 
@@ -130,7 +144,9 @@ const FullResume = () => {
           {/* Header */}
           <header className={isATS ? 'mb-4 text-center border-b-2 border-black pb-3' : (compact ? 'mb-4' : 'mb-8')}>
             <h1 className={`${compact || isATS ? 'text-2xl' : 'text-4xl'} font-extrabold text-on-surface tracking-tight mb-0.5 uppercase`}>{info.name}</h1>
-            <p className={`${compact || isATS ? 'text-base' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
+            {info.showTitle && (
+              <p className={`${compact || isATS ? 'text-base' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
+            )}
 
             {isATS && (
               <div className="mt-3 flex flex-wrap justify-center items-center gap-x-4 gap-y-1 text-[12px] font-bold text-on-surface">
@@ -172,7 +188,7 @@ const FullResume = () => {
             {/* Summary */}
             <section>
               <h2 className={`text-xs font-extrabold uppercase tracking-[0.1em] text-primary mb-1.5 border-b border-primary/20 pb-0.5 w-full ${isATS ? 'text-[13px] text-black border-black/40' : ''}`}>
-                Professional Summary
+                PROFILE SUMMARY
               </h2>
               <p className="text-on-surface-variant leading-tight font-medium text-[13px]">
                 {info.summary}
@@ -242,8 +258,8 @@ const FullResume = () => {
                         <h3 className="text-[12px] font-bold text-on-surface uppercase tracking-tight flex items-center gap-2">
                           {project.title}
                           {project.url !== "#" && project.url && (
-                            <a href={project.url} target="_blank" className="print:hidden">
-                              <ExternalLink size={10} className="text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                            <a href={project.url} target="_blank" className="">
+                              <ExternalLink size={10} className="text-primary opacity-70 group-hover:opacity-100 transition-opacity" />
                             </a>
                           )}
                         </h3>
@@ -312,6 +328,17 @@ const FullResume = () => {
                         </div>
                       ))}
                     </div>
+                  </section>
+                )}
+
+                {visibility.tools && (
+                  <section>
+                    <h2 className="text-[13px] font-extrabold uppercase tracking-[0.1em] text-black mb-1.5 border-b border-black/40 pb-0.5 w-full">
+                      Tools & Technologies
+                    </h2>
+                    <p className="text-on-surface-variant font-medium leading-tight text-[12px]">
+                      {(data.tools || []).join(" • ")}
+                    </p>
                   </section>
                 )}
               </div>
