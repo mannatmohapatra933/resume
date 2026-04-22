@@ -10,23 +10,28 @@ export const ResumeProvider = ({ children }) => {
     
     try {
       const parsed = JSON.parse(savedData);
-      // Deep merge with initialData to ensure new sections exist
-      return {
-        ...initialData,
-        ...parsed,
-        personalInfo: { ...initialData.personalInfo, ...(parsed.personalInfo || {}) },
-        expertise: { ...initialData.expertise, ...(parsed.expertise || {}) },
-        // Fallbacks for arrays
-        experience: parsed.experience || initialData.experience,
-        education: parsed.education || initialData.education,
-        projects: parsed.projects || initialData.projects,
-        skills: parsed.skills || initialData.skills,
-        tools: parsed.tools || initialData.tools,
-        socials: parsed.socials || initialData.socials,
-        certificates: parsed.certificates || initialData.certificates,
-        achievements: parsed.achievements || initialData.achievements,
-        hobbies: parsed.hobbies || initialData.hobbies,
-      };
+      
+      // Ensure all top-level sections exist
+      const mergedData = { ...initialData };
+      Object.keys(parsed).forEach(key => {
+        if (Array.isArray(parsed[key])) {
+          mergedData[key] = parsed[key];
+        } else if (typeof parsed[key] === 'object' && parsed[key] !== null) {
+          mergedData[key] = { ...mergedData[key], ...parsed[key] };
+        } else {
+          mergedData[key] = parsed[key];
+        }
+      });
+
+      // Special handling for nested visibility
+      if (parsed.personalInfo && parsed.personalInfo.visibility) {
+        mergedData.personalInfo.visibility = {
+          ...initialData.personalInfo.visibility,
+          ...parsed.personalInfo.visibility
+        };
+      }
+
+      return mergedData;
     } catch (e) {
       console.error("Failed to parse resumeData:", e);
       return initialData;

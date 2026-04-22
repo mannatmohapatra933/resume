@@ -630,6 +630,10 @@ const Layout = ({ children }) => {
                           </button>
                           <input className="bg-transparent font-bold text-base w-full outline-none" placeholder="Certificate Name" value={cert.title} onChange={(e) => updateItem('certificates', cert.id, { ...cert, title: e.target.value })} />
                           <input className="bg-transparent text-sm font-semibold opacity-70 w-full outline-none" placeholder="Issuer" value={cert.issuer} onChange={(e) => updateItem('certificates', cert.id, { ...cert, issuer: e.target.value })} />
+                          <div className="flex items-center gap-2 text-xs opacity-60">
+                            <LinkIcon size={12} />
+                            <input className="bg-transparent w-full outline-none" placeholder="Certificate URL" value={cert.url} onChange={(e) => updateItem('certificates', cert.id, { ...cert, url: e.target.value })} />
+                          </div>
                         </div>
                       ))}
                     </div>
