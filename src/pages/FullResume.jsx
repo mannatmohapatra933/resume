@@ -152,8 +152,23 @@ const FullResume = () => {
         {/* Main Content Area */}
         <main className={`flex-1 ${compact ? 'p-6 md:p-8' : 'p-8 md:p-12'} ${isATS ? 'p-8 md:p-10' : ''}`}>
           {/* Header */}
-          <header className={isATS ? 'mb-4 text-center border-b-2 border-black pb-3' : (compact ? 'mb-4' : 'mb-8')}>
+          <header className={isATS ? 'mb-4 text-center border-b-2 border-black pb-3 flex flex-col items-center' : (compact ? 'mb-4' : 'mb-8')}>
+            {isATS && info.showPhoto && (
+              <div className="w-20 h-20 bg-gray-100 rounded-full mb-3 border border-gray-300 overflow-hidden shrink-0">
+                {info.photoUrl ? (
+                  <img src={info.photoUrl} alt={info.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <UserIcon size={40} />
+                  </div>
+                )}
+              </div>
+            )}
             <h1 className={`${compact || isATS ? 'text-2xl' : 'text-4xl'} font-extrabold text-on-surface tracking-tight mb-0.5 uppercase`}>{info.name}</h1>
+            {info.showPhoto && !isATS && !info.photoUrl && (
+              /* Fallback for sidebar photo if no URL provided */
+              null 
+            )}
             {info.showTitle && (
               <p className={`${compact || isATS ? 'text-base' : 'text-xl'} font-bold text-primary tracking-wide uppercase opacity-90`}>{info.title}</p>
             )}
