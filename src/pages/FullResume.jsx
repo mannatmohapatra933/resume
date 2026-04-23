@@ -35,8 +35,8 @@ const FullResume = () => {
   };
 
   return (
-    <div className={`bg-white shadow-2xl mx-auto my-8 print:my-0 print:shadow-none transition-all duration-500 overflow-hidden ${isATS ? 'max-w-[210mm] min-h-[297mm]' : 'max-w-[210mm] min-h-[297mm]'} ${baseFontSize}`}>
-      <div className={`flex flex-col md:flex-row h-full min-h-[297mm] ${isATS ? 'bg-white' : ''}`}>
+    <div className={`bg-white shadow-2xl mx-auto my-8 print:my-0 print:shadow-none transition-all duration-500 overflow-hidden ${isATS ? 'max-w-[210mm] min-h-[297mm] print:min-h-0' : 'max-w-[210mm] min-h-[297mm] print:min-h-0'} ${baseFontSize}`}>
+      <div className={`flex flex-col md:flex-row h-full min-h-[297mm] print:min-h-0 ${isATS ? 'bg-white' : ''}`}>
 
         {/* Sidebar */}
         {!isATS && (

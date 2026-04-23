@@ -307,8 +307,8 @@ const Layout = ({ children }) => {
                         </button>
                       </div>
 
-                      <div className="pt-4 space-y-3">
-                        <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Visibility Controls</label>
+                    <div className="pt-4 space-y-3">
+                      <label className="text-xs font-bold text-on-surface-variant uppercase ml-1">Visibility Controls</label>
                         <div className="grid grid-cols-2 gap-2">
                           {Object.keys(info.visibility).map(section => (
                             <button

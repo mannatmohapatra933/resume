@@ -77,11 +77,20 @@
 @media print {
   @page {
     size: A4;
-    margin: 0;
+    margin: 0 !important; /* Hides browser headers and footers */
   }
   
-  body {
+  html, body {
+    height: auto !important;
+    min-height: 0 !important;
     background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    /* Add padding here to act as the page margin without triggering browser headers */
+    padding: 10mm !important;
   }
 
   .no-print {
@@ -92,11 +101,32 @@
     display: block !important;
   }
   
+  /* Prevent extra blank pages */
+  #root, #root > div {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
   /* Reset background effects for print */
   .glass-panel, .glass-card {
     background: white !important;
     backdrop-filter: none !important;
     border: none !important;
     box-shadow: none !important;
+  }
+
+  /* Ensure resume content fits correctly */
+  main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    display: block !important;
+  }
+
+  /* Hide scrollbars during print */
+  ::-webkit-scrollbar {
+    display: none !important;
   }
 }
