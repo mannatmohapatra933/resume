@@ -648,6 +648,26 @@ const Layout = ({ children }) => {
                     <div className="p-5 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl border border-primary/20 space-y-4">
                       <div className="flex items-start gap-4">
                         <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary shrink-0">
+                          <Globe size={20} />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-primary">How to: Profile Photo URL</p>
+                          <p className="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                            Always use a **Direct Image Link** (ending in .jpg, .png). 
+                            <br/><br/>
+                            • **Google Drive**: Use "Share" and copy the ID. Direct link format: `https://drive.google.com/uc?export=view&id=YOUR_ID`
+                            <br/>
+                            • **ImgBB**: Upload and select **"Direct Link"** from the dropdown.
+                            <br/>
+                            • **Easiest**: Right-click any image online and select **"Copy Image Address"**.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-5 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-2xl border border-primary/20 space-y-4">
+                      <div className="flex items-start gap-4">
+                        <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary shrink-0">
                           <Lightbulb size={20} />
                         </div>
                         <div>
